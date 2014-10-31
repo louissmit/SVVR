@@ -1,0 +1,20 @@
+{
+  "name": "cars",
+  "version": "0.0.0",
+  "authors": [
+    "louissmit <ghr1Co74G9>"
+  ],
+  "main": "main.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nvd3": "~1.1.15-beta"
+  }
+}
