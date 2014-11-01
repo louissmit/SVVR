@@ -20,12 +20,20 @@ datasets, sets with few variables. To represent high-dimensional datasets one ha
 \textit{Necessary? Probably just Bertin's work or some other landmark papers if possible (Max 2 pages so maybe unnecessary).}
 
 \section{Data}
-\textit{Talk a bit about our dataset (Maybe only info that Robert gave us).} The data that we used was a filtered version of the \textit{Common/Old/Convetional/??} dataset first used in \textit{REF}.
-% 2. Sources:
-%    (a) Origin:  This dataset was taken from the StatLib library which is
-%                 maintained at Carnegie Mellon University. The dataset was 
-%                 used in the 1983 American Statistical Association Exposition.
-%    (c) Date: July 7, 1993
+The data that we used was an alterend and filtered version of the 'cars' dataset first used in the 1983 American Statistical Association Exposition, which is maintained by the StatLib Library at Carnegie Mellon University\footnote{Found at http://lib.stat.cmu.edu/index.php}. The data was collected by Ernesto Ramos and David Donoho. We no longer use the engine displacement listed in the original dataset. In the data set there are 392 observations about cars produced between 1970 and 1982. Every car is represented by the following data items:
+\begin{center}
+	\begin{tabular}{| l | l | l |}
+	\hline
+	\textbf{Column} & \textbf{Description} & \textbf{Detail} \\ \hline
+	Model & Model name & \\ \hline
+	MPG & Miles per gallon & \\ \hline
+	Cylindes & Number of cylinders & 3,4,5,6 or 8 cylinders \\ \hline
+	Horsepower & Horsepower &  \\ \hline
+	Weight & Vehicle weight in lbs. & \\ \hline
+	Year & Model year & Modulo 100. Ranging from 70 to 83\\ \hline
+	Origin & Country of original & US = American \\&& Europe = European \\ &&Japan = Japanese \\ \hline
+	\end{tabular}
+\end{center}
 
 \section{Visual attributes}
 \textit{Use Bertin's visual attributes to explain choices.}
@@ -36,6 +44,6 @@ datasets, sets with few variables. To represent high-dimensional datasets one ha
 \section{Conclusion}
 In this paper we showed our way to represent the 
 
-\section{Bibliography}
+\section{References}
 
 \end{document}
