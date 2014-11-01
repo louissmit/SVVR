@@ -1,8 +1,9 @@
 \documentclass{article}
-
+\usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{capt-of}
 
 \title{Representing High-Dimensional Datasets}
 
@@ -17,7 +18,23 @@ In Scientific Visualization one of the biggest hurdles one has to overcome is ho
 datasets, sets with few variables. To represent high-dimensional datasets one has to use other methods. In this paper we present the way we chose to represent our 7D-dataset and explain our choices.
 
 \section{Background}
-\textit{Necessary? Probably just Bertin's work or some other landmark papers if possible (Max 2 pages so maybe unnecessary).}
+In 1974 Jaques Bertin wrote his now famous paper \emph{Sémiologie Graphique}\cite{Bertin74}. In this paper Bertin described some basic units, including points, lines, and areas, as the basis for multiple methods through which these units can be modified, including position, size, shape and color. These modifications are called visual attributes. Each of these attributes can have certain characteristics. He defined seven of these visual attributes. They consist of:
+\begin{center}
+	\begin{tabular}{| l | l |}
+	\hline
+	\textbf{Attribute} & \textbf{Description} \\ \hline
+	Position & Changes in the x,y location \\ \hline
+	Size & Changes in length or area \\ \hline
+	Shape & Changes in shape \\ \hline
+	Value & Changes from light to dark \\ \hline
+	Colour & Changes in hue \\ \hline
+	Orientation & Changes in alignment \\ \hline
+	Texture & Variation in texture \\ \hline
+	\end{tabular}
+	\captionof{table}{Bertin's original Visual Attributes}
+\end{center}
+
+These Visual Attributes are used in Scientific Visualization to make visualizations that are unambigous and don't use the same visual attributes to represent different data attributes or represent the same data attributes using multiple visual attributes. Later on this list was expanded and was provided with different sorting for their accuracy, based on the task by Jock D. Mackinlay\cite{Mackinlay86}.
 
 \section{Data}
 The data that we used was an alterend and filtered version of the 'cars' dataset first used in the 1983 American Statistical Association Exposition, which is maintained by the StatLib Library at Carnegie Mellon University\footnote{Found at http://lib.stat.cmu.edu/index.php}. The data was collected by Ernesto Ramos and David Donoho. We no longer use the engine displacement listed in the original dataset. In the data set there are 392 observations about cars produced between 1970 and 1982. Every car is represented by the following data items:
@@ -33,6 +50,7 @@ The data that we used was an alterend and filtered version of the 'cars' dataset
 	Year & Model year & Modulo 100. Ranging from 70 to 83\\ \hline
 	Origin & Country of original & US = American \\&& Europe = European \\ &&Japan = Japanese \\ \hline
 	\end{tabular}
+	\captionof{table}{Dataset description.}
 \end{center}
 
 \section{Visual attributes}
@@ -44,6 +62,12 @@ The data that we used was an alterend and filtered version of the 'cars' dataset
 \section{Conclusion}
 In this paper we showed our way to represent the 
 
-\section{References}
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+\bibitem{Bertin74}
+Bertin, J.: \emph{Sémiologie Graphique}. Paris: Editions Gauthier-Villars. Deutsche Übersetzung von Jensch, G.; Schade, D.; Scharfe, W.: Graphische Semiologie. Diagramme – Netze - Karten. Berlin: Walter de Gruyter, 1974.
+\bibitem{Mackinlay86}
+Mackinlay, J. D.: \emph{Automating the design of graphical presentations of relational information.}1986. ACM Trans. Graph. 5, 2 (April 1986), 110-141
+\end{thebibliography}
 
 \end{document}
