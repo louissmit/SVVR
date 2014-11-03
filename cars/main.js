@@ -1,51 +1,62 @@
 (function() {
+
+var lightness = d3.scale.ordinal().range([0,  0.125,  0.25 ,  0.375,  0.5]).domain([3,4,5,6,8]),
+    saturation = d3.scale.linear().range([0.5,1]).domain([70,83]),
+    hue = {'US':50, 'Europe' : 200, 'Japan' : 100};
+
 var groups = [
-{key: "US", values:[]},
-{key: "EU", values:[]},
-{key: "JP", values:[]}]
-var indices = {"US": 0, "Europe":1, "Japan":2}
-var x = d3.csv("cars.csv", function(d) {
+  {key: "US", color:d3.hsl(hue['US'],1,.5), values:[]},
+  {key: "EU", color:d3.hsl(hue['Europe'],1,.5), values:[]},
+  {key: "JP", color:d3.hsl(hue['Japan'],1,.5), values:[]}];
+var indices = {"US": 0, "Europe":1, "Japan":2};
+
+
+d3.csv("cars.csv", function(d) {
   // console.log(d)
+  console.log(d);
   var datapoint = {
       x: +d.MPG,
       y: +d.horsepower,
       size: +d.weigth,
-      shape: "circle"
-    }
-  groups[indices[d.origin]].values.push(datapoint)
-  // return {
-    // year: new Date(+d.Year, 0, 1), // convert "Year" column to Date
-    // make: d.make,
-    // model: d.model,
-    // length: +d.Length // convert "Length" column to number
-  // };
+      shape: "circle",
+      color: d3.hsl(hue[d.origin],saturation(d.year),lightness(d.cylinders)),
+      data: d
+    };
+  groups[indices[d.origin]].values.push(datapoint);
+
 }, function(error, rows) {
-  console.log(rows);
+    nv.addGraph(function() {
+        var chart = nv.models.scatterChart()
+                    .transitionDuration(100)
+                    .color(d3.scale.category10().range());
+
+        //Configure how the tooltip looks.
+        chart.tooltipContent(function(key,x,y,datapoint) {
+        string = '';
+        for (var property in datapoint.point.data) {
+            if (datapoint.point.data.hasOwnProperty(property)) {
+                string += property + ' : ' + datapoint.point.data[property] + '<br />';
+            }
+        }
+          return '<h3>' + string + '</h3>';
+        });
+
+        //Axis settings
+        chart.xAxis.tickFormat(d3.format('.02f'));
+        chart.yAxis.tickFormat(d3.format('.02f'));
+
+        //We want to show shapes other than circles.
+
+        d3.select('#chart svg')
+          .datum(groups)
+          .call(chart);
+
+        nv.utils.windowResize(chart.update);
+        return chart;
+    });
 });
 
 
-nv.addGraph(function() {
-  var chart = nv.models.scatterChart()
-                .transitionDuration(350)
-                .color(d3.scale.category10().range());
 
-  //Configure how the tooltip looks.
-  chart.tooltipContent(function(key) {
-      return '<h3>' + key + '</h3>';
-  });
-
-  //Axis settings
-  chart.xAxis.tickFormat(d3.format('.02f'));
-  chart.yAxis.tickFormat(d3.format('.02f'));
-
-  //We want to show shapes other than circles.
-
-  d3.select('#chart svg')
-      .datum(groups)
-      .call(chart);
-
-  nv.utils.windowResize(chart.update);
-
-  return chart;
-});
 })();
+
