@@ -10,16 +10,22 @@ var groups = [
   {key: "JP", color:d3.hsl(hue['Japan'],1,.5), values:[]}];
 var indices = {"US": 0, "Europe":1, "Japan":2};
 
+var cylinders =
+{
+  3: "triangle-up",
+  4: "square",
+  5: "diamond",
+  6: "cross",
+  8: "circle"}
+
 
 d3.csv("cars.csv", function(d) {
-  // console.log(d)
-  console.log(d);
   var datapoint = {
       x: +d.MPG,
       y: +d.horsepower,
       size: +d.weigth,
-      shape: "circle",
-      color: d3.hsl(hue[d.origin],saturation(d.year),lightness(d.cylinders)),
+      shape: cylinders[+d.cylinders],
+      color: d3.hsl(hue[d.origin],saturation(+d.year), 0.5),
       data: d
     };
   groups[indices[d.origin]].values.push(datapoint);
@@ -40,6 +46,8 @@ d3.csv("cars.csv", function(d) {
         }
           return '<h3>' + string + '</h3>';
         });
+        chart.scatter.onlyCircles(false);
+
 
         //Axis settings
         chart.xAxis.tickFormat(d3.format('.02f'));
@@ -59,4 +67,3 @@ d3.csv("cars.csv", function(d) {
 
 
 })();
-
