@@ -37,24 +37,27 @@ In 1974 Jaques Bertin wrote his now famous paper \emph{Sémiologie Graphique}\ci
 These Visual Attributes are used in Scientific Visualization to make visualizations that are unambigous and don't use the same visual attributes to represent different data attributes or represent the same data attributes using multiple visual attributes. Later on this list was expanded and was provided with different sorting for their accuracy, based on the task by Jock D. Mackinlay\cite{Mackinlay86}.
 
 \section{Data}
-The data that we used was an alterend and filtered version of the 'cars' dataset first used in the 1983 American Statistical Association Exposition, which is maintained by the StatLib Library at Carnegie Mellon University\footnote{Found at http://lib.stat.cmu.edu/index.php}. The data was collected by Ernesto Ramos and David Donoho. We no longer use the engine displacement listed in the original dataset. In the data set there are 392 observations about cars produced between 1970 and 1982. Every car is represented by the following data items:
+The data that we used was an altered and filtered version of the 'cars' dataset first used in the 1983 American Statistical Association Exposition, which is maintained by the StatLib Library at Carnegie Mellon University\footnote{Found at http://lib.stat.cmu.edu/index.php}. The data was collected by Ernesto Ramos and David Donoho. We no longer use the engine displacement listed in the original dataset. In the data set there are 392 observations about cars produced between 1970 and 1982. Every car is represented by the following data:
 \begin{center}
-	\begin{tabular}{| l | l | l |}
+	\begin{table}
+	\begin{tabular}{| l | l | l | l |}
 	\hline
-	\textbf{Column} & \textbf{Description} & \textbf{Detail} \\ \hline
-	Model & Model name & \\ \hline
-	MPG & Miles per gallon & \\ \hline
-	Cylindes & Number of cylinders & 3,4,5,6 or 8 cylinders \\ \hline
-	Horsepower & Horsepower &  \\ \hline
-	Weight & Vehicle weight in lbs. & \\ \hline
-	Year & Model year & Modulo 100. Ranging from 70 to 83\\ \hline
-	Origin & Country of original & US = American \\&& Europe = European \\ &&Japan = Japanese \\ \hline
+	\textbf{Column} & \textbf{Description} & \textbf{Detail} & \textbf{Nominal, Ordinal or Quantitative} \\ \hline
+	Model & Model name & & Nominal \\ \hline
+	MPG & Miles per gallon & & Quantitative \\ \hline
+	Cylinders & Number of cylinders & 3,4,5,6 or 8 cylinders & Ordinal\\ \hline
+	Horsepower & Horsepower & & Quantitative \\ \hline
+	Weight & Vehicle weight in lbs. & & Quantitative\\ \hline
+	Year & Model year & Modulo 100. Ranging from 70 to 83 & Ordinal\\ \hline
+	Origin & Country of original & US = American & Nominal \\&& Europe = European & \\ &&Japan = Japanese & \\ \hline
 	\end{tabular}
+	\label{table:data_desc}
+	\end{table}
 	\captionof{table}{Dataset description.}
 \end{center}
 
 \section{Visual attributes}
-\textit{Use Bertin's visual attributes to explain choices.}
+To start representing this dataset in one visualization we looked at every variable and whether it was a Nominal, Ordinal or Quantative variable. This is done so we can accurately represent every variable by using only one visual attribute and only use every visual attribute only once. In Table \ref{table:data_desc} it can be seen that there are multiple quantitative variables, however three quantitative variables can be represented easily in a 2D-visualization by using position on the x-axis, position of the y-axis and scale of the points that represent every dataitem. So Miles Per Gallon (MPG) is being represented by using the position of the x-axis, horsepower on the y-axis and every point is being scaled using the weight of the vehicle. The ordinal variables are being represented by using shape for the amount of cylinders, where the saturation of the color of every datapoint is being used for the build year of the car. The last variable, country of origin is being depicted by the hue of the color of every datapoint. This last choice was made early on in the process of making this visualization to show the difference between cars from different continents.
 
 \section{Visualization}
 \textit{Include figure and explain what it shows. Also explain how we made it}
