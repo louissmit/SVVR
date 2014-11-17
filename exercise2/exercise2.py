@@ -26,10 +26,9 @@ v16.SetDataSpacing(1, 1, 2)
 contour_skeleton = vtk.vtkContourFilter()
 contour_skeleton.SetInputConnection(v16.GetOutputPort())
 contour_skeleton.SetValue(0, initial_v)
-contour_skeleton.ComputeScalarsOn()
 contour_skeleton.ComputeNormalsOn()
 # Turn off blue color from contour -> Set color in Actor
-#contour_skeleton.ComputeScalarsOff()
+# contour_skeleton.ComputeScalarsOff()
 
 normals_skeleton = vtk.vtkPolyDataNormals()
 normals_skeleton.SetInputConnection(contour_skeleton.GetOutputPort())
@@ -37,19 +36,17 @@ normals_skeleton.SetFeatureAngle(60.0)
 
 
 mapper_skeleton = vtk.vtkPolyDataMapper()
-# Turn off blue color
-mapper_skeleton.ScalarVisibilityOff()
-mapper_skeleton.SetScalarRange(500,18000)
+mapper_skeleton.SetScalarRange(500,5000)
 mapper_skeleton.SetInputConnection(normals_skeleton.GetOutputPort())
 
 skeleton = vtk.vtkActor()
 skeleton.SetMapper(mapper_skeleton)
 
 # Turn this on if the computation of scalars is off
-skeleton.GetProperty().SetColor(.7,.7,.7)
-skeleton.GetProperty().SetAmbient(.1)
-skeleton.GetProperty().SetDiffuse(1)
-skeleton.GetProperty().SetSpecular(.1)
+# skeleton.GetProperty().SetColor(.7,.7,.7)
+# skeleton.GetProperty().SetAmbient(.1)
+# skeleton.GetProperty().SetDiffuse(1)
+# skeleton.GetProperty().SetSpecular(.1)
 
 
 
