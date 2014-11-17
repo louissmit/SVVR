@@ -3,11 +3,12 @@
 import vtk
 import sys
 import time
+import os
 
 
-initial_v = 200
+initial_v = 2750
 min_v = 500
-max_v = 36000
+max_v = 5000
 
 ren = vtk.vtkRenderer()
 renWin = vtk.vtkRenderWindow()
@@ -17,7 +18,7 @@ iren.SetRenderWindow(renWin)
 
 v16 = vtk.vtkVolume16Reader()
 v16.SetDataDimensions(256,256)
-v16.SetFilePrefix("/Users/Imperal/Downloads/MysteryData/slice")
+v16.SetFilePrefix(os.cwd()+"MysteryData/slice")
 v16.SetImageRange(1, 94)
 v16.SetDataSpacing(1, 1, 2)
 
