@@ -33,7 +33,7 @@ tissue_config['Large Intestine']= (9 ,(255 /255, 20 /255, 147 /255),.7)
 tissue_config['Liver'] 			= (10,(249 /255, 201 /255, 144 /255),.1)
 tissue_config['Lung'] 			= (11,(0 /255, 181 /255, 117 /255),.7)	
 tissue_config['Nerve'] 			= (12,(255 /255, 215 /255, 0 /255),.7)	
-tissue_config['Skeleton'] 		= (13,(255 /255, 255 /255, 255 /255), .1)	
+tissue_config['Skeleton'] 		= (13,(255 /255, 255 /255, 255 /255), .2)	
 tissue_config['Spleen']			= (14,(188 /255, 139 /255, 172 /255),.7)
 tissue_config['Stomach'] 		= (15,(106 /255, 90 /255, 205 /255),.7)
 
@@ -49,20 +49,44 @@ iren.SetRenderWindow(renWin)
 
 frog_reader = get_reader(frog_dir+'frog.')
 
-frog_contour = vtk.vtkContourFilter()
-frog_contour.SetInputConnection(frog_reader.GetOutputPort())
-frog_contour.SetValue(0,10)
-frog_contour.ComputeScalarsOff()
+composite_function2 = vtk.vtkVolumeRayCastCompositeFunction()
+composite_function2.SetCompositeMethodToClassifyFirst()
+volume_mapper2 = vtk.vtkVolumeRayCastMapper()
+volume_mapper2.SetVolumeRayCastFunction(composite_function2)
+volume_mapper2.SetInputConnection(frog_reader.GetOutputPort())
 
-frog_mapper = vtk.vtkPolyDataMapper()
-frog_mapper.SetInputConnection(frog_contour.GetOutputPort())
+opacity_transfer_function2 = vtk.vtkPiecewiseFunction()
+opacity_transfer_function2.AddPoint(0, 0)
+opacity_transfer_function2.AddPoint(10, .1)
 
-frog_actor = vtk.vtkActor()
-frog_actor.SetMapper(frog_mapper)
-frog_actor.GetProperty().SetOpacity(0.1)
-frog_actor.GetProperty().SetColor(*skin_color)
+color_transfer_function2 = vtk.vtkColorTransferFunction()
+color_transfer_function2.AddRGBPoint(49,*skin_color)
 
-ren.AddActor(frog_actor)
+volume_prop2 = vtk.vtkVolumeProperty()
+volume_prop2.SetColor(color_transfer_function2)
+volume_prop2.SetScalarOpacity(opacity_transfer_function2)
+volume_prop2.SetInterpolationTypeToLinear()
+
+volume2 = vtk.vtkVolume()
+volume2.SetMapper(volume_mapper2)
+volume2.SetProperty(volume_prop2)
+
+ren.AddVolume(volume2)
+
+# frog_contour = vtk.vtkContourFilter()
+# frog_contour.SetInputConnection(frog_reader.GetOutputPort())
+# frog_contour.SetValue(0,10)
+# frog_contour.ComputeScalarsOff()
+
+# frog_mapper = vtk.vtkPolyDataMapper()
+# frog_mapper.SetInputConnection(frog_contour.GetOutputPort())
+
+# frog_actor = vtk.vtkActor()
+# frog_actor.SetMapper(frog_mapper)
+# frog_actor.GetProperty().SetOpacity(0.1)
+# frog_actor.GetProperty().SetColor(*skin_color)
+
+# ren.AddActor(frog_actor)
 
 tissue_reader = get_reader(frog_dir + 'frogTissue.')
 
